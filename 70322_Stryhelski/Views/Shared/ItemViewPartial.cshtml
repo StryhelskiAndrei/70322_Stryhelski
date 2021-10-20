@@ -1,0 +1,24 @@
+﻿@model _70322_Stryhelski.DAL.Film
+
+<div class="col-md-4">
+    <div class="thumbnail">
+        <img height="200" src="@Url.Action("getImage",new {id=Model.FilmId })" alt="NoImage" class="img-thumbnail" />
+        <div class="caption">
+            <div class="item-name">
+                <h3>@Model.Name</h3>
+            </div>
+            <div class="item-description">
+                @Model.Description
+            </div>
+            <div class="centered">
+                <h3 class="badge">@Model.Price $</h3>
+            </div>
+            <div class="centered">
+                <a href=@Url.Action("AddToCart","Cart",new {id=Model.FilmId, returnUrl=Request.Path}) class="btn btn-primary">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                    В корзину
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

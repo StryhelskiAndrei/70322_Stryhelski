@@ -1,0 +1,46 @@
+﻿@model _70322_Stryhelski.Models.Cart
+@{
+    ViewBag.Title = "Index"; }
+<h2>Ваша корзина</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Наименование</th>
+            <th>Количество</th>
+            <th>Всего калорий</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.GetItems())
+        {
+        <tr>
+            <td>@item.Film.Name</td>
+            <td>@item.Count</td>
+            <td>@(item.Film.Price * item.Count)</td>
+            @*<td><button type="submit" name="action" onclick="@Url.Action("DeleteFromCart","Cart",item.Film.FilmId)"> Кнопка</button></td>*@
+            <td>
+                @Ajax.ActionLink(
+                    "Удалить",
+                    "DeleteFromCart",
+                    "Cart",
+                    new
+                    {
+                        id = item.Film.FilmId
+                    },
+                    new AjaxOptions
+                    {
+                        UpdateTargetId = "cartTable",
+                        InsertionMode = InsertionMode.Replace
+                    },
+                    new
+                    {
+                        @class = "btn btn-danger",
+                        onclick = "return confirm('Вы действительно хотите удалить товар?');"
+                    }
+                )
+            </td>
+        </tr>
+        }
+    </tbody>
+</table> <a href="@TempData["returnUrl"]" class="btn btn-default">Вернуться к меню</a>
+

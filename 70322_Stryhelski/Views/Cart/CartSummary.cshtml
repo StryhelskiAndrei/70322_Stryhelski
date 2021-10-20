@@ -1,0 +1,5 @@
+﻿@model _70322_Stryhelski.Models.Cart
+<a href=@Url.Action("Index","Cart",new {returnUrl=Request.Path })>
+    @Model.GetTotal() USD ( @Model.GetItems().Sum(i => i.Count) )
+    <span class="glyphicon glyphicon-shopping-cart"></span>
+</a>

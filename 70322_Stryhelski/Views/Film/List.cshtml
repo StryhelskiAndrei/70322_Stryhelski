@@ -1,0 +1,52 @@
+﻿@model _70322_Stryhelski.Models.PageListViewModel<_70322_Stryhelski.DAL.Film>
+@using System.Text;
+@{
+    ViewBag.Title = "List"; }
+@*<h2>List</h2>*@
+<div id="List">
+    @Html.Partial("ListPartial", Model);
+</div>
+@section SidePanel{ @Html.Action("Side", "Film") }
+
+@*@{
+        ViewBag.Title = "List";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h2>List</h2>
+
+    @{
+        // объект для "собирания" разметки
+        StringBuilder result = new StringBuilder();
+        // счетчик эскизов в строке
+        var i = 0;
+        TagBuilder row = new TagBuilder("div");
+        foreach (var item in Model)
+        {
+            i++;
+            if (i == 1) // для первого элемента в строке создаем новую строку
+            {
+                row = new TagBuilder("div");
+                row.AddCssClass("row");
+                row.AddCssClass("item-row");
+            }
+            row.InnerHtml += Html.Partial("ItemViewPartial", item);
+            if (i == 3) // если строка закончена
+            {
+                // добавить строку в разметку
+                result.Append(row.ToString());
+            }
+        }
+        if (i != 3) // если последняя строка не заполнена
+        {
+            // добавить строку в разметку
+            result.Append(row.ToString());
+            // обнулить счетчик элементов в строке
+            i = 0;
+        }
+    }*@
+<!-- Получить готовую разметку -->
+@*@section SidePanel { @Html.Action("Side", "Film") }
+
+    @MvcHtmlString.Create(result.ToString())
+    @Html.Partial("PagerPArtial", Model)*@

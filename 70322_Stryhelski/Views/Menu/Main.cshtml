@@ -1,0 +1,11 @@
+﻿@model IEnumerable<_70322_Stryhelski.Models.MenuItem>
+<ul class="nav nav-pills">
+    @*<li>@Html.ActionLink("Домой", "Index", "Home")</li>
+    <li class="active"> @Html.ActionLink("Каталог", "List", "Product")</li>
+    <li>@Html.ActionLink("Администрирование", "Index", "Admin")</li>*@
+    @foreach(var item in Model)
+    {
+        <li class="@item.Active">@Html.ActionLink(item.Name, item.Action, item.Controller)</li>
+    }
+
+</ul>

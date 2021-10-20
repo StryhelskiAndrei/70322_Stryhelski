@@ -1,0 +1,41 @@
+﻿@*<div class="nav navbar-left">
+        <a href="#" class="navbar-link"><span class="glyphicon glyphicon-user"></span>Войти</a>
+        <a href="#" class="navbar-link"><span class="glyphicon glyphicon-plus-sign"></span>Зарегестрироваться</a>
+    </div>*@
+@using System.Security.Claims
+
+<div class="nav navbar-left">
+    @if (User.Identity.IsAuthenticated)
+    {
+        var identity = User.Identity as ClaimsIdentity;
+        var nick = identity.Claims
+                        .Where(c => c.Type == "nick")
+                        .Select(c => c.Value)
+                        .SingleOrDefault();
+
+        using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+        {
+            @Html.AntiForgeryToken();
+            <span>Привет, @nick!</span>
+            <a href="javascript:document.getElementById('logoutForm').submit()">
+                <span class="glyphicon glyphicon-log-out" />
+                Выйти
+            </a>
+        }
+    }
+    else
+    {
+        <a href=@Url.Action("Login", "Account") class="navbar-link">
+            <span class="glyphicon glyphicon-log-in" />Войти
+        </a>
+        <a href=@Url.Action("Register", "Account") class="navbar-link">
+            <span class="glyphicon glyphicon-check" />Зарегестрироваться
+        </a>
+    }
+</div>
+
+<div class="nav navbar-right">
+    @Html.Action("CartSummary", "Cart")
+    @*<a href=@Url.Action("Index","Cart",new {returnUrl=Request.Path })>0.00 руб. (0)<span class="glyphicon glyphicon-shopping-cart"></span> </a>*@
+    @*<a href="#">0.00 руб. (0)<span class="glyphicon glyphicon-shopping-cart"></span> </a>*@
+</div>
